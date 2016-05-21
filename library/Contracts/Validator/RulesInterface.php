@@ -1,6 +1,6 @@
 <?php
 
-namespace Illustrator\Contracts\Validation;
+namespace Illustrator\Contracts\Validator;
 
 interface RulesInterface
 {

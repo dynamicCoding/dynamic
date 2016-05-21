@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-class AuthMiddleware
+class TokenMiddleware
 {
 	/**
 	 * @access public
