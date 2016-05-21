@@ -360,9 +360,9 @@ class Illustrator implements IllustratorInterface
 
 		$config->register('viewConfig', $this->getView());
 
-		$path = $config['viewConfig']['paths'];
+		$path = $config['viewConfig'];
 
-		$config->register('view', View::class, [array_shift($path), $config['viewConfig']['paths']]);
+		$config->register('view', View::class, [$path['view'], $path['options']]);
 
 		$config->register('filesystem', FileSystem::class);
 

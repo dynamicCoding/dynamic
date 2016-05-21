@@ -14,7 +14,7 @@ class AuthMiddleware
 	 
 	public function handle($request, $response, $next)
 	{
-		if($request->body('csrf_tk')){
+		if(!$request->body('csrf_tk')){
 			$response->redirect("/");
 		}
 		return $next($request, $response);

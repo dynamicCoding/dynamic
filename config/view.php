@@ -11,13 +11,18 @@ return [
      * las especificacion se declara en arhivo ini
      */
 
-    'paths' => [
 
-        /**
-         * root de la vista
-         */
+    /**
+      * root de la vista
+      */
 
-        'view' => config('app_path.view'),
+    'view' => config('app_path.view'),
+    
+    /**
+     * otras opciones para el funcionamiento de la vista
+     */
+      
+    'options' => [
 
         /**
          * si usa el sistema de platillas redis y la funcion al incluir los assets
@@ -32,27 +37,15 @@ return [
         ],
 
         /**
-         * ruta de donde se compila
+         * ruta de donde se compila la vista
          */
 
         'compile' => config('app_path.view_compile'),
 
         /**
-         * activar la cache
+         * activar la cache, si es false se compilara con la funcion eval
          */
 
         'cache' => true
-
-    ],
-
-    /**
-     * -----------------------------------------------------------------------------
-     * RUTA DE COMPILACION
-     * -----------------------------------------------------------------------------
-     *
-     * si utiliza la plantilla redis aqui es donde se especifica el archivo compilado
-     * esta es una clave donde esta definida ya la ruta el ini
-     */
-
-    'compile' => config('app_path.view_compile')
+    ]
 ];
