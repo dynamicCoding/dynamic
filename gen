@@ -1,0 +1,60 @@
+#!/usr/bin/env php
+<?php
+
+use Illustrator\Cli\Generator;
+
+require dirname(__FILE__) . '/app/start.php';
+
+/**
+ * Gen
+ */
+$nameApp = array_shift($argv);
+
+/**
+ * number of arguments minus one
+ */
+$lengthArgs = $argc - 1;
+
+/**
+ * type of generate
+ */
+$typeGen =  array_shift($argv);
+
+/**
+ * @class Generate
+ */
+$gen = new Generator($typeGen);
+
+/**
+ * default directories
+ * controllers
+ * middleware
+ * request
+ * assets
+ * view
+ */
+$gen->defaultPaths();
+
+/**
+ * executing
+ */
+
+if ( $gen->isGenHelp() ) {
+
+    echo $gen->help();
+
+}elseif ( $gen->isGenController() ) {
+
+    $make =  $argv[0] == 'plain' ? ['plain', $argv[1]] : ( count($argv) > 1 ? ['add', $argv] : ['default', $argv[0]] );
+
+    $gen->createController($make)->genOther();
+
+}elseif ($gen->isGenMiddleware()) {
+
+    $gen->createMiddleware($argv[0]);
+
+}elseif ($gen->isGenRequest()) {
+
+    $gen->createRequest($argv[0]);
+
+}
