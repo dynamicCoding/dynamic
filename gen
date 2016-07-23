@@ -33,6 +33,7 @@ $gen = new Generator($typeGen);
  * assets
  * view
  */
+
 $gen->defaultPaths();
 
 /**
