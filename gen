@@ -40,11 +40,11 @@ $gen->defaultPaths();
  * executing
  */
 
-if ( $gen->isGenHelp() ) {
+if ($gen->isGenHelp()) {
 
     echo $gen->help();
 
-}elseif ( $gen->isGenController() ) {
+}elseif ($gen->isGenController()) {
 
     $make =  $argv[0] == 'plain' ? ['plain', $argv[1]] : ( count($argv) > 1 ? ['add', $argv] : ['default', $argv[0]] );
 
@@ -52,10 +52,14 @@ if ( $gen->isGenHelp() ) {
 
 }elseif ($gen->isGenMiddleware()) {
 
-    $gen->createMiddleware($argv[0]);
+    $gen->create('Middleware', $argv[0]);
 
 }elseif ($gen->isGenRequest()) {
 
-    $gen->createRequest($argv[0]);
+    $gen->create('Request', $argv[0]);
+
+}elseif ($gen->isGenModel()) {
+
+    $gen->createModel($argv);
 
 }

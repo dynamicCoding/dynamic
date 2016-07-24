@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Request;
 
-namespace Illustrator\Contracts\Validator
+use Illustrator\Contracts\Validator\RulesInterface;
 
-class {nameClass} implements
+class {nameClass} implements RulesInterface
 {
 	/**
 	 * metodo de implementacion para los validadores
