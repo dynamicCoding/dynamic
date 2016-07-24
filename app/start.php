@@ -9,5 +9,5 @@ $vendor = ILLUM_PATH . '/vendor/autoload.php';
 if(file_exists($vendor)){
 	include $vendor;
 }else{
-	include ILLUM_PATH . '/app/boostrap.php';
+	include ILLUM_PATH . '/app/bootstrap.php';
 }
