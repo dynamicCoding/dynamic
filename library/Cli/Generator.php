@@ -29,6 +29,11 @@ class Generator
     /**
      * @var string
      */
+    protected $model;
+
+    /**
+     * @var string
+     */
     private $typeGen;
 
     /**
@@ -68,6 +73,7 @@ class Generator
         $this->controller = ILLUM_PATH . '/app/Http/Controllers/';
         $this->middleware = ILLUM_PATH . '/app/Http/Middleware/';
         $this->request    = ILLUM_PATH . '/app/Http/Request/';
+        $this->model      = ILLUM_PATH . '/app/Models/';
     }
 
     /**
@@ -131,35 +137,65 @@ class Generator
     }
 
     /**
+     * @param string $with
      * @return string
      */
-    public function help()
+    public function help($with = '')
     {
+        if ($with === '-m' || $with == 'model') {
+            return <<<'HELPMODEL'
+
+    usage model: [<filename>] | <options> [migrate | reverse | drop] [all | filename]
+
+Generic options:
+    filename            name model
+    migrate             migrates tables
+    reverse             reverses the changes of the table
+    drop                deletes the table
+
+Specific model actions:
+    all                 you can migrate all tables as reverse and eliminate all tables
+    filename            take some action when only the file name specified
+
+HELPMODEL;
+
+        } elseif ($with === '-c' || $with == 'controller') {
+            return <<<'HELPCONTROLLER'
+
+    usage controller:   [<optional> [plain]] <filename> [<optional> [...args]]
+
+Optionals:
+    plain               creates a controller without methods
+    args                specifies the name of the method without using the option plain
+
+
+HELPCONTROLLER;
+        }
+
         return  <<<'HELP'
-    comandos de ayuda
 
-    help, -h            despliega una lista de opciones
-    controller, -c      controlador
-    middleware, -mdw    middleware
-    request, -req       request
-    model, -m [         modelo
-        options
-        -------
+    usage help: <options> [controller | -c | model | -m]
 
-        migrate[
-            all,        migra todas las tablas
-            name table  migra una tabla especifica
-        ],
-        reverse[
-            all,        reviertre todo los cambios
-            name table  revierte cambio
-        ],
-        drop[
-            name table  elimina la tabla especificada
-        ]
-    ]
+Commands:
+    help, -h            displays a list of options
+    controller, -c      creates a controller
+    middleware, -mdw    creates a middleware
+    request, -req       creates a request
+    model, -m           creates a modelo
 
 HELP;
+    }
+
+    /**
+     * @param string $n
+     * @return string
+     */
+    public function noCommand($n)
+    {
+        if ($n == '') {
+            return "type one of these options\r\n {$this->help()}";
+        }
+        return 'name command ['. $n .'] not exists'. "\r\n" . $this->help();
     }
 
     /**

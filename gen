@@ -42,7 +42,7 @@ $gen->defaultPaths();
 
 if ($gen->isGenHelp()) {
 
-    echo $gen->help();
+    echo $gen->help(isset($argv[0]) ? $argv[0] : '');
 
 }elseif ($gen->isGenController()) {
 
@@ -60,6 +60,12 @@ if ($gen->isGenHelp()) {
 
 }elseif ($gen->isGenModel()) {
 
-    $gen->createModel($argv);
+    $take = in_array($argv[0], ['migrate', 'reverse', 'drop']) ? ['', $argv] : $argv[0];
+
+    $gen->inModel($take);
+
+}else {
+
+    echo $gen->noCommand(isset($argv[0]) ?  $argv[0] : $typeGen == null ?  '' : $typeGen);
 
 }
