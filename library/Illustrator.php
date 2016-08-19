@@ -10,6 +10,7 @@ namespace Illustrator;
  */
 
 use Illustrator\Contracts\IllustratorInterface;
+use Illustrator\Database\Capsule;
 use Illustrator\Routing\Dispatcher;
 use Illustrator\Routing\Route;
 use Illustrator\Http\Request;
@@ -20,6 +21,13 @@ use View\View;
 
 class Illustrator implements IllustratorInterface
 {
+
+	/**
+	 * @var Config
+	 */
+
+	public $container;
+
 	/**
 	* @var null
 	*/
@@ -73,12 +81,6 @@ class Illustrator implements IllustratorInterface
 	 */
 
 	protected $setParameters;
-
-	/**
-	 * @var Config
-	 */
-
-	protected $container;
 
 	/**
 	* @param string $dir directory path
@@ -335,6 +337,19 @@ class Illustrator implements IllustratorInterface
 	}
 
 	/**
+	 * @return mixed|null
+	 */
+	protected function database()
+	{
+		$path = $this->path .'/config/database.php';
+		if (file_exists($path)) {
+			$config = include $path;
+			return $config;
+		}
+		return null;
+	}
+
+	/**
 	 * @access public
 	 * @return Config
 	 */
@@ -369,6 +384,12 @@ class Illustrator implements IllustratorInterface
 		$config->register('request', Request::class, $config['filesystem']);
 
 		$config->register('response', Response::class, $config['request']);
+
+		$dbconnect = $this->database();
+
+		if ($dbconnect != null) {
+			$config->register('database', Capsule::class, [$dbconnect]);
+		}
 
 		return $config;
 	}
